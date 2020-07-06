@@ -2,15 +2,15 @@ FROM node:alpine
 
 WORKDIR /opt/app
 
-COPY package*.json ./
+COPY package*.json yarn.lock ./
 
 RUN npm install
 
 COPY . .
 
 # MIGRATE
-# RUN node --harmony ace migration:run --force
+RUN npm sequelize db:migrate
 
 EXPOSE 3333
 
-CMD ["npm", "start"]
+CMD ["yarn", "dev"]
